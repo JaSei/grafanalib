@@ -3441,6 +3441,7 @@ class GaugePanel(Panel):
     :param thresholdMarkers: option to show marker of level on gauge
     :param thresholds: single stat thresholds
     :param valueMaps: the list of value to text mappings
+    :param neutral: neutral point of gauge, leave empty to use Min as neutral point
     """
 
     allValues = attr.ib(default=False, validator=instance_of(bool))
@@ -3465,6 +3466,7 @@ class GaugePanel(Panel):
         validator=instance_of(list),
     )
     valueMaps = attr.ib(default=attr.Factory(list))
+    neutral = attr.ib(default=None)
 
     def to_json_data(self):
         return self.panel_json(
@@ -3482,6 +3484,9 @@ class GaugePanel(Panel):
                         'mappings': self.valueMaps,
                         'override': {},
                         'values': self.allValues,
+                        'custom': {
+                            'neutral': self.neutral,
+                        },
                     },
                     'showThresholdLabels': self.thresholdLabels,
                     'showThresholdMarkers': self.thresholdMarkers,
