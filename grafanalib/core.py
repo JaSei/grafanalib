@@ -1698,6 +1698,12 @@ class AlertRulev9(object):
             else:
                 data += [trigger.to_json_data()]
 
+
+        if self.dashboard_uid:
+            self.annotations['__dashboardUid__'] = self.dashboard_uid
+        if self.panel_id:
+            self.annotations['__panelId__'] = f"{self.panel_id}"
+
         return {
             "uid": self.uid,
             "for": self.evaluateFor,
@@ -1710,6 +1716,8 @@ class AlertRulev9(object):
                 "no_data_state": self.noDataAlertState,
                 "exec_err_state": self.errorAlertState,
             },
+            "dashboardUid": self.dashboard_uid,
+            "panelId": self.panel_id,
         }
 
 
